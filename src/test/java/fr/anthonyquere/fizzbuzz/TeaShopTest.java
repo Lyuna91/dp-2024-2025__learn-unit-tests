@@ -13,15 +13,11 @@ public class TeaShopTest {
     private TeaShop teaShop;
 
     @Test
-    void should_not_be_drinkable_without_steeping_time(){
+    void should_not_be_drinkable_if_empty(){
         tea = new Tea("Black Tea", 80, 80, true);
         teaCup = new TeaCup();
 
-        teaCup.addWater(80);
-
-        teaCup.addTea(tea);
-
-        // Tasse qui n'a pas eu le temps d'infuser n'est pas buvable
+        // une Tasse vide n'est pas buvable.
         assertThat(teaCup.isReadyToDrink()).isFalse();
     }
 
@@ -37,12 +33,40 @@ public class TeaShopTest {
     }
 
     @Test
-    void should_not_be_drinkable_if_empty(){
+    void should_not_be_drinkable_if_temperature_not_ideal(){
         tea = new Tea("Black Tea", 80, 80, true);
         teaCup = new TeaCup();
 
-        // une Tasse vide n'est pas buvable.
+        teaCup.addWater(90);
+
+        // Une tasse sans thé n'est pas buvable.
         assertThat(teaCup.isReadyToDrink()).isFalse();
+    }
+
+    @Test
+    void should_not_be_drinkable_without_steeping_time(){
+        tea = new Tea("Black Tea", 80, 80, true);
+        teaCup = new TeaCup();
+
+        teaCup.addWater(80);
+
+        teaCup.addTea(tea);
+
+        // Tasse qui n'a pas eu le temps d'infuser n'est pas buvable
+        assertThat(teaCup.isReadyToDrink()).isFalse();
+    }
+
+    @Test
+    void should_be_drinkable(){
+        tea = new Tea("Black Tea", 0, 80, true);
+        teaCup = new TeaCup();
+
+        teaCup.addWater(80);
+
+        teaCup.addTea(tea);
+
+        // Tasse qui a eu le temps d'infuser est buvable
+        assertThat(teaCup.isReadyToDrink()).isTrue();
     }
 
     @Test
