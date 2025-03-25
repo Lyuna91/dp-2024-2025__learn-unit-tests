@@ -5,6 +5,7 @@ import fr.anthonyquere.teashop.TeaCup;
 import fr.anthonyquere.teashop.TeaShop;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public class TeaShopTest {
     @Test
     void should_throw_exception_when_adding_tea_without_water(){
         // Tester que l'ajout de thé sans eau lève une exception.
-        assertThrows(IllegalStateException.class, () -> teaCup.addTea(tea1));
+        assertThrowsExactly(IllegalStateException.class, () -> teaCup.addTea(tea1));
     }
 
     @Test
@@ -80,7 +81,7 @@ public class TeaShopTest {
     @Test
     void should_throw_exception_if_trying_to_prepare_a_non_existing_tea(){
         // Tester que l'ajout d'un thé qui n'existe pas lève une exception.
-        assertThrows(IllegalArgumentException.class, () -> teaShop.prepareTea("Chai Tea"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> teaShop.prepareTea("Chai Tea"));
     }
 
     @Test
@@ -94,6 +95,6 @@ public class TeaShopTest {
     @Test
     void should_throw_exception_if_not_valid_water_temperature(){
         // Tester qu'une température d'eau incorrecte lève une exception.
-        assertThrows(IllegalArgumentException.class, () -> teaShop.setWaterTemperature(1000));
+        assertThrowsExactly(IllegalArgumentException.class, () -> teaShop.setWaterTemperature(1000));
     }
 }
